@@ -35,9 +35,12 @@ class Renamer extends SimpleFileVisitor<Path> {
       StringWriter stringWriter = new StringWriter();
       InputStream fileStream = Files.newInputStream(file);
       try {
+        System.out.println("Renaming " + file.getParent().getParent().getFileName());
         transformer.setParameter("student", file.getParent().getParent().getFileName());
         transformer.transform(new StreamSource(fileStream), new StreamResult(stringWriter));
+        System.out.println("\t SUCCESS!");
       } catch (TransformerException e) {
+        System.out.println("\t ERROR!");
         e.printStackTrace();
       }
       fileStream.close();
